@@ -334,7 +334,8 @@ public final class EditorPane extends AbstractPane {
 
 	private CheckBox createAnimated() {
 		isAnimated = new CheckBox("Animated");
-		isAnimated.addEventHandler(checkHandler);
+		isAnimated.setOnAction(actionHandler);
+		return isAnimated;
 	}
 
 
@@ -419,11 +420,14 @@ public final class EditorPane extends AbstractPane {
 	// to get the modified information in the relevant widget and use it to
 	// update the corresponding data attribute value in the model.
 
+	private final class CheckHandler implements EventHandler<ActionEvent> {
 
-	private final class CheckHandler implements ChangeListener<Boolean> {
-		
-		public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-
+		@Override
+		public void handle(ActionEvent event) {
+			if (event.getSource().equals(isAnimated))
+				controller.set("isAnimated", isAnimated.isSelected());
+			else if (event.getSource().equals(isColor))
+				controller.set("isColor", isColor.isSelected());
 		}
 	}
 	private final class GenreChanger implements ListChangeListener {
@@ -448,6 +452,10 @@ public final class EditorPane extends AbstractPane {
 				controller.set("title", titleField.getText());
 			else if (source == directorField)
 				controller.set("director", directorField.getText());
+			else if (source == isAnimated)
+				controller.set("isAnimated", isAnimated.isSelected());
+			else if (source == isColor)
+				controller.set("isColor", isColor.isSelected());
 		}
 	}
 
