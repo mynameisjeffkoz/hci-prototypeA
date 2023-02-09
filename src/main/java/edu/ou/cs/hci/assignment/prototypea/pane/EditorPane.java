@@ -338,6 +338,11 @@ public final class EditorPane extends AbstractPane {
 		return isAnimated;
 	}
 
+	private CheckBox createColor() {
+		isColor = new CheckBox("Color");
+		isColor.setOnAction(actionHandler);
+		return isColor;
+	}
 
 	// Create a pane with a slider for the gallery. The progress bar and
 	// slider show the same value from the model, so are synchronized.
