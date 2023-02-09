@@ -200,6 +200,10 @@ public final class EditorPane extends AbstractPane {
 			genreList.getSelectionModel().getSelectedIndices().addListener(genreChanger);
 			System.out.println("Reenable listener");
 		}
+		else if ("isAnimated".equals(key))
+			isAnimated.setSelected((Boolean)value);
+		else if ("isColor".equals(key))
+			isColor.setSelected((Boolean)value);
 
 	}
 
