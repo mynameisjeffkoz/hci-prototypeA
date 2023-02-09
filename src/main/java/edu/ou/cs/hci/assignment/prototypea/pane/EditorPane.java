@@ -16,6 +16,7 @@ package edu.ou.cs.hci.assignment.prototypea.pane;
 
 //import java.lang.*;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -77,17 +78,15 @@ public final class EditorPane extends AbstractPane {
 
 	private ListView<String> genreList;
 
-/*
-	private CheckBox action, comedy, documentary, drama, fantasy, horror,
-			romance, sciFi, thriller, western;
 
-	private CheckBox boxes[] = {action, comedy, documentary, drama, fantasy, horror,
-			romance, sciFi, thriller, western};
-*/
+	private CheckBox isAnimated, isColor;
+
 	// Handlers
 	private final ActionHandler actionHandler;
 
 	private final GenreChanger genreChanger;
+
+	private final CheckHandler checkHandler;
 
 	//**********************************************************************
 	// Constructors and Finalizer
@@ -99,6 +98,8 @@ public final class EditorPane extends AbstractPane {
 		actionHandler = new ActionHandler();
 
 		genreChanger = new GenreChanger();
+
+		checkHandler = new CheckHandler();
 
 		setBase(buildPane());
 	}
@@ -242,6 +243,8 @@ public final class EditorPane extends AbstractPane {
 		pane.add(createRuntimeSlider(), 1, 2);
 		pane.add(createGenrePane(), 1, 3);
 
+		pane.add(createAnimated(),2,2);
+		pane.add(createColor(),2,3);
 		return pane;
 	}
 
@@ -329,6 +332,11 @@ public final class EditorPane extends AbstractPane {
 		return genreList;
 	}
 
+	private CheckBox createAnimated() {
+		isAnimated = new CheckBox("Animated");
+		isAnimated.addEventHandler(checkHandler);
+	}
+
 
 	// Create a pane with a slider for the gallery. The progress bar and
 	// slider show the same value from the model, so are synchronized.
@@ -411,6 +419,13 @@ public final class EditorPane extends AbstractPane {
 	// to get the modified information in the relevant widget and use it to
 	// update the corresponding data attribute value in the model.
 
+
+	private final class CheckHandler implements ChangeListener<Boolean> {
+		
+		public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+
+		}
+	}
 	private final class GenreChanger implements ListChangeListener {
 
 		public void onChanged(Change change) {
