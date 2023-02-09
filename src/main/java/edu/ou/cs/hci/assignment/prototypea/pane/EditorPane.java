@@ -247,8 +247,8 @@ public final class EditorPane extends AbstractPane {
 		pane.add(createRuntimeSlider(), 1, 2);
 		pane.add(createGenrePane(), 1, 3);
 
-		pane.add(createAnimated(),2,2);
-		pane.add(createColor(),2,3);
+		pane.add(createAnimated(),2,1);
+		pane.add(createColor(),2,2);
 		return pane;
 	}
 
