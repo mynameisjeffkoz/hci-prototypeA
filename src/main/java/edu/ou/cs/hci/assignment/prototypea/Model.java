@@ -69,7 +69,7 @@ public final class Model
 		properties.put("runtime", 120);
 		properties.put("summary", "Summary");
 		properties.put("title","Title");
-		properties.put("year", "YYYY");
+		properties.put("year", 0000);
 
 	}
 

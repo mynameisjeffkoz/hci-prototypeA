@@ -113,6 +113,8 @@ public final class EditorPane extends AbstractPane {
 
 		runtimeSlider.setValue((Integer)controller.get("runtime"));
 
+		yearField.setText(String.format("%04d", (int) controller.get("year")));
+
 	}
 
 	// TODO #5: Write code to detach widgets from any model properties (or other
