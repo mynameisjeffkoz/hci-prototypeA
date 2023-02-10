@@ -154,25 +154,22 @@ public final class EditorPane extends AbstractPane {
             genreList.getSelectionModel().getSelectedIndices().removeListener(genreChanger);
             ObservableList<Integer> list = (ObservableList<Integer>) value;
             ObservableList<Integer> list_copy = FXCollections.observableArrayList(list);
-            System.out.println("List is " + list_copy.toString());
             genreList.getSelectionModel().clearSelection();
-            System.out.println("Clear model");
-            System.out.println("List is " + list.toString());
-            System.out.println("list copy is " + list_copy.toString());
             for (int num : list_copy) {
                 genreList.getSelectionModel().select(num);
             }
             genreList.getSelectionModel().getSelectedIndices().addListener(genreChanger);
-            System.out.println("Reenable listener");
         } else if ("isAnimated".equals(key))
             isAnimated.setSelected((Boolean) value);
         else if ("isColor".equals(key))
             isColor.setSelected((Boolean) value);
         else if ("year".equals(key))
             yearField.setText(Integer.toString((int) value));
-        else if ("ageRating".equals(key)) {
+        else if ("ageRating".equals(key))
             selectRating((String) value);
-        }
+        else if ("posterPath".equals(key))
+            imgPath.setText((String) value);
+
 
     }
 
@@ -217,7 +214,7 @@ public final class EditorPane extends AbstractPane {
 
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
-        pane.add(posterPane,3,0);
+        pane.add(posterPane, 3, 0);
 
 
         return pane;
@@ -364,7 +361,7 @@ public final class EditorPane extends AbstractPane {
     }
 
     private Pane createImagePane() {
-        Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
+        Pane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
 
         ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
         posterView.setPreserveRatio(true);
@@ -473,16 +470,13 @@ public final class EditorPane extends AbstractPane {
                     controller.set("year", 2040);
                 else
                     controller.set("year", year);
-            }
-            else if (source == imgSelect) {
+            } else if (source == imgSelect) {
                 String text = imgSelect.getText();
                 if (text.startsWith("Clicked")) {
                     imgSelect.setText(text + " ");
-                }
-                else
+                } else
                     imgSelect.setText("Clicked");
-            }
-            else if (source == imgPath) {
+            } else if (source == imgPath) {
                 controller.set("posterPath", imgPath.getText());
             }
         }
