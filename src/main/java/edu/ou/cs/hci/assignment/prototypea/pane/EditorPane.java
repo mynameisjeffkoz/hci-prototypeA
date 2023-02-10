@@ -33,6 +33,7 @@ import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
 import edu.ou.cs.hci.assignment.prototypea.Controller;
 
+import javax.swing.*;
 import java.util.function.UnaryOperator;
 
 //******************************************************************************
@@ -450,8 +451,25 @@ public final class EditorPane extends AbstractPane {
     }
 
     private Pane createUserRating() {
-        Pane pane = new FlowPane(Orientation.HORIZONTAL,8,8);
-        
+        GridPane pane = new GridPane();
+        pane.setHgap(8);
+        pane.setVgap(8);
+
+        pane.add(new Label ("Ratings:"),0,0);
+        userRatings = new TextField();
+        userRatings.setPrefColumnCount(4);
+        userRatings.setOnAction(actionHandler);
+        pane.add(userRatings,1,0);
+
+        pane.add(new Label("Average:"),2,0);
+        userAverage = new TextField();
+        userAverage.setPrefColumnCount(3);
+        userAverage.setOnAction(actionHandler);
+        pane.add(userAverage,3,0);
+
+        pane.setMaxWidth(300);
+
+
         return pane;
     }
 
