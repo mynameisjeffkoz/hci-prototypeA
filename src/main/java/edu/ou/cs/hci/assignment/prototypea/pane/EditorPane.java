@@ -75,11 +75,12 @@ public final class EditorPane extends AbstractPane {
 
 	private TextField yearField;
 
+	private ToggleGroup ratingGroup;
+
 	// Handlers
 	private final ActionHandler actionHandler;
 
 	private final GenreChanger genreChanger;
-
 
 	//**********************************************************************
 	// Constructors and Finalizer
@@ -214,6 +215,7 @@ public final class EditorPane extends AbstractPane {
 		pane.add(createYear(), 2, 0);
 		pane.add(createAnimated(),2,1);
 		pane.add(createColor(),2,2);
+		pane.add(createRating(),2,3);
 		return pane;
 	}
 
@@ -285,6 +287,34 @@ public final class EditorPane extends AbstractPane {
 		runtimeDisplay.setPrefColumnCount(3);
 
 		pane.getChildren().add(runtimeDisplay);
+
+		return pane;
+	}
+
+	private Pane createRating() {
+		Pane pane = new HBox(8);
+		pane.getChildren().add(new Label("Rating:"));
+
+		Pane flowPane = new FlowPane(Orientation.VERTICAL,8,8);
+		pane.getChildren().add(flowPane);
+
+		ratingGroup = new ToggleGroup();
+
+		RadioButton gButton = new RadioButton();
+		gButton.setToggleGroup(ratingGroup);
+		flowPane.getChildren().add(gButton);
+
+		RadioButton pgButton = new RadioButton();
+		pgButton.setToggleGroup(ratingGroup);
+		flowPane.getChildren().add(pgButton);
+
+		RadioButton pg13Button = new RadioButton();
+		pg13Button.setToggleGroup(ratingGroup);
+		flowPane.getChildren().add(pg13Button);
+
+		RadioButton rButton = new RadioButton();
+		rButton.setToggleGroup(ratingGroup);
+		flowPane.getChildren().add(rButton);
 
 		return pane;
 	}
