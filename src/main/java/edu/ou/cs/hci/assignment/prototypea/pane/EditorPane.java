@@ -75,7 +75,7 @@ public final class EditorPane extends AbstractPane {
 
     private ListView<String> genreList;
 
-    private CheckBox isAnimated, isColor, awardPicture, awardDirecting, awardCinematography, awardActing;
+    private CheckBox isAnimated, isColor;
 
     private TextField yearField;
 
@@ -85,7 +85,11 @@ public final class EditorPane extends AbstractPane {
 
     private Button imgSelect;
 
+    private CheckBox awardPicture, awardDirecting, awardCinematography, awardActing;
+
     private TextField imgPath;
+
+    private TextField userRatings, userAverage;
 
     // Handlers
     private final ActionHandler actionHandler;
@@ -232,6 +236,10 @@ public final class EditorPane extends AbstractPane {
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
         upperGrid.add(posterPane, 3, 0);
+
+        Pane userRatingPane = createUserRating();
+        GridPane.setColumnSpan(userRatingPane,2);
+        upperGrid.add(userRatingPane,2,4);
 
         BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
@@ -439,6 +447,12 @@ public final class EditorPane extends AbstractPane {
 
         return pane;
 
+    }
+
+    private Pane createUserRating() {
+        Pane pane = new FlowPane(Orientation.HORIZONTAL,8,8);
+        
+        return pane;
     }
 
     //**********************************************************************
