@@ -317,6 +317,7 @@ public final class EditorPane extends AbstractPane {
 		yearField = new TextField();
 		yearField.setPrefColumnCount(3);
 		yearField.setTextFormatter(new TextFormatter<String>(yearFilter));
+		yearField.setOnAction(actionHandler);
 
 		pane.getChildren().add(yearField);
 		return pane;
@@ -383,6 +384,15 @@ public final class EditorPane extends AbstractPane {
 				controller.set("isAnimated", isAnimated.isSelected());
 			else if (source == isColor)
 				controller.set("isColor", isColor.isSelected());
+			else if (source == yearField) {
+				int year = Integer.parseInt(yearField.getText());
+				if (year < 1960)
+					controller.set("year", 1960);
+				else if (year > 2040)
+					controller.set("year", 2040);
+				else
+					controller.set("year", year);
+			}
 		}
 	}
 
