@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
@@ -184,40 +185,43 @@ public final class EditorPane extends AbstractPane {
 
     private Pane buildPane() {
 
-        GridPane pane = new GridPane();
+        GridPane upperGrid = new GridPane();
 
-        pane.setAlignment(Pos.TOP_LEFT);
-        pane.setHgap(8.0);
-        pane.setVgap(8.0);
+        upperGrid.setAlignment(Pos.TOP_LEFT);
+        upperGrid.setHgap(8.0);
+        upperGrid.setVgap(8.0);
 
         Label titleLabel = new Label("Title:");
         Label directorLabel = new Label("Director:");
         Label runtimeLabel = new Label("Runtime:");
         Label genreLabel = new Label("Genre:");
 
-        pane.add(titleLabel, 0, 0);
-        pane.add(directorLabel, 0, 1);
-        pane.add(runtimeLabel, 0, 2);
-        pane.add(genreLabel, 0, 3);
+        upperGrid.add(titleLabel, 0, 0);
+        upperGrid.add(directorLabel, 0, 1);
+        upperGrid.add(runtimeLabel, 0, 2);
+        upperGrid.add(genreLabel, 0, 3);
 
-        pane.add(createTitle(), 1, 0);
-        pane.add(createDirector(), 1, 1);
-        pane.add(createRuntimeSlider(), 1, 2);
-        pane.add(createGenrePane(), 1, 3);
+        upperGrid.add(createTitle(), 1, 0);
+        upperGrid.add(createDirector(), 1, 1);
+        upperGrid.add(createRuntimeSlider(), 1, 2);
+        upperGrid.add(createGenrePane(), 1, 3);
 
 
-        pane.add(createYear(), 2, 0);
-        pane.add(createAnimated(), 2, 1);
-        pane.add(createColor(), 2, 2);
-        pane.add(createRating(), 2, 3);
+        upperGrid.add(createYear(), 2, 0);
+        upperGrid.add(createAnimated(), 2, 1);
+        upperGrid.add(createColor(), 2, 2);
+        upperGrid.add(createRating(), 2, 3);
 
 
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
-        pane.add(posterPane, 3, 0);
+        upperGrid.add(posterPane, 3, 0);
 
+        BorderStroke gridBorderStroke = new BorderStroke(Color.DARKGRAY,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(20));
+        Border gridBorder = new Border(gridBorderStroke);
+        upperGrid.setBorder(gridBorder);
 
-        return pane;
+        return upperGrid;
     }
 
     //**********************************************************************
