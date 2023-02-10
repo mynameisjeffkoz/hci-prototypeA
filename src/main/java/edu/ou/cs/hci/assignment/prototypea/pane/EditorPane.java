@@ -365,7 +365,7 @@ public final class EditorPane extends AbstractPane {
 
         ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
         posterView.setPreserveRatio(true);
-        posterView.setFitWidth(200);
+        posterView.setFitWidth(120);
         pane.getChildren().add(posterView);
 
         imgSelect = new Button("Select Image");
