@@ -65,7 +65,7 @@ public final class Model
 		properties.put("isColor", false);
 		properties.put("numReviews",0);
 		properties.put("posterPath", "Path");
-		properties.put("ageRating", null);
+		properties.put("ageRating", "NR");
 		properties.put("runtime", 120);
 		properties.put("summary", "Summary");
 		properties.put("title","Title");
