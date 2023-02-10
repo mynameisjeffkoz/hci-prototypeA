@@ -170,6 +170,16 @@ public final class EditorPane extends AbstractPane {
             selectAgeRating((String) value);
         else if ("posterPath".equals(key))
             imgPath.setText((String) value);
+        else if (key.contains("award")) {
+            if (key.contains("Picture"))
+                setAwardCheck(awardPicture, (Model.Award) value);
+            else if (key.contains("Directing"))
+                setAwardCheck(awardDirecting, (Model.Award) value);
+            else if (key.contains("Cinematography"))
+                setAwardCheck(awardCinematography,(Model.Award) value);
+            else if (key.contains("Acting"))
+                setAwardCheck(awardActing,(Model.Award) value);
+        }
 
 
     }
@@ -214,14 +224,10 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(createGenrePane(), 1, 3);
         upperGrid.add(createAwardPane(),1,4);
 
-
         upperGrid.add(createYear(), 2, 0);
         upperGrid.add(createAnimated(), 2, 1);
         upperGrid.add(createColor(), 2, 2);
         upperGrid.add(createAgeRating(), 2, 3);
-
-
-
 
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
@@ -526,6 +532,14 @@ public final class EditorPane extends AbstractPane {
             return Model.Award.TRUE;
         else
             return Model.Award.FALSE;
+    }
+
+    private void setAwardCheck(CheckBox check, Model.Award state) {
+        if (state.equals(Model.Award.NOMINATED))
+            check.setIndeterminate(true);
+        else
+            check.setIndeterminate(false);
+            check.setSelected(state.equals(Model.Award.TRUE));
     }
 
     private final class ActionHandler
