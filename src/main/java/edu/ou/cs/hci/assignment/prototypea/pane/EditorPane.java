@@ -16,6 +16,7 @@ package edu.ou.cs.hci.assignment.prototypea.pane;
 
 //import java.lang.*;
 
+import edu.ou.cs.hci.assignment.prototypea.Model;
 import edu.ou.cs.hci.resources.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +25,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -358,18 +360,22 @@ public final class EditorPane extends AbstractPane {
 
         awardPicture = new CheckBox("Picture");
         awardPicture.setAllowIndeterminate(true);
+        awardPicture.setOnAction(actionHandler);
         pane.getChildren().add(awardPicture);
 
         awardDirecting = new CheckBox("Directing");
         awardDirecting.setAllowIndeterminate(true);
+        awardDirecting.setOnAction(actionHandler);
         pane.getChildren().add(awardDirecting);
 
         awardCinematography = new CheckBox("Cinematography");
         awardCinematography.setAllowIndeterminate(true);
+        awardCinematography.setOnAction(actionHandler);
         pane.getChildren().add(awardCinematography);
 
         awardActing = new CheckBox("Acting");
         awardActing.setAllowIndeterminate(true);
+        awardActing.setOnAction(actionHandler);
         pane.getChildren().add(awardActing);
 
         pane.setMaxHeight(100);
@@ -497,6 +503,31 @@ public final class EditorPane extends AbstractPane {
         }
     }
 
+    private void updateAwardState(CheckBox source) {
+        String name = source.toString();
+        String key = "award";
+
+        if (name.contains("Picture"))
+            key += "Picture";
+        else if (name.contains("Directing"))
+            key += "Directing";
+        else if (name.contains("Cinematography"))
+            key += "Cinematography";
+        else if (name.contains("Acting"))
+            key += "Acting";
+
+        controller.set(key, readAwardCheck(source));
+    }
+
+    private Model.Award readAwardCheck(CheckBox source) {
+        if (source.isIndeterminate())
+            return Model.Award.NOMINATED;
+        else if (source.isSelected())
+            return Model.Award.TRUE;
+        else
+            return Model.Award.FALSE;
+    }
+
     private final class ActionHandler
             implements EventHandler<ActionEvent> {
         public void handle(ActionEvent e) {
@@ -526,6 +557,10 @@ public final class EditorPane extends AbstractPane {
                     imgSelect.setText("Clicked");
             } else if (source == imgPath) {
                 controller.set("posterPath", imgPath.getText());
+            }
+            else if (source == awardPicture || source == awardDirecting
+                        || source == awardCinematography ||source == awardActing) {
+                updateAwardState((CheckBox) source);
             }
         }
     }
