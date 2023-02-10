@@ -300,19 +300,19 @@ public final class EditorPane extends AbstractPane {
 
 		ratingGroup = new ToggleGroup();
 
-		RadioButton gButton = new RadioButton();
+		RadioButton gButton = new RadioButton("G");
 		gButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(gButton);
 
-		RadioButton pgButton = new RadioButton();
+		RadioButton pgButton = new RadioButton("PG");
 		pgButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(pgButton);
 
-		RadioButton pg13Button = new RadioButton();
+		RadioButton pg13Button = new RadioButton("PG-13");
 		pg13Button.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(pg13Button);
 
-		RadioButton rButton = new RadioButton();
+		RadioButton rButton = new RadioButton("R");
 		rButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(rButton);
 
