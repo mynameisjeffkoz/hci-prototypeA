@@ -54,10 +54,10 @@ public final class Model
 		// attributes from the table in Design A. (The table has 19 rows, but
 		// 2 of them are merely for helper widgets to load and show the poster.)
 		properties.put("userRatingAvg", 0.0);
-		properties.put("awardPicture", false);
-		properties.put("awardDirecting", false);
-		properties.put("awardCinematography", false);
-		properties.put("awardActing", false);
+		properties.put("awardPicture", Award.FALSE);
+		properties.put("awardDirecting", Award.FALSE);
+		properties.put("awardCinematography", Award.FALSE);
+		properties.put("awardActing", Award.FALSE);
 		properties.put("comments", "Comments:");
 		properties.put("director", "Director");
 		properties.put("genre", FXCollections.observableArrayList());
@@ -121,6 +121,8 @@ public final class Model
 			controller.update(key, value);
 		}
 	}
+
+	public enum Award {FALSE, NOMINATED, TRUE};
 }
 
 //******************************************************************************

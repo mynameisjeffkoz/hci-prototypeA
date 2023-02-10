@@ -229,6 +229,8 @@ public final class EditorPane extends AbstractPane {
         Border gridBorder = new Border(gridBorderStroke);
         upperGrid.setBorder(gridBorder);
 
+        upperGrid.setGridLinesVisible(true);
+
         outerPane.setTop(upperGrid);
 
         return outerPane;
@@ -353,6 +355,24 @@ public final class EditorPane extends AbstractPane {
     private Pane createAwardPane() {
 
         Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
+
+        awardPicture = new CheckBox("Picture");
+        awardPicture.setAllowIndeterminate(true);
+        pane.getChildren().add(awardPicture);
+
+        awardDirecting = new CheckBox("Directing");
+        awardDirecting.setAllowIndeterminate(true);
+        pane.getChildren().add(awardDirecting);
+
+        awardCinematography = new CheckBox("Cinematography");
+        awardCinematography.setAllowIndeterminate(true);
+        pane.getChildren().add(awardCinematography);
+
+        awardActing = new CheckBox("Acting");
+        awardActing.setAllowIndeterminate(true);
+        pane.getChildren().add(awardActing);
+
+        pane.setMaxHeight(100);
 
         return pane;
     }
