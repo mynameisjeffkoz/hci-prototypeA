@@ -77,8 +77,6 @@ public final class EditorPane extends AbstractPane {
 
 	private final GenreChanger genreChanger;
 
-	private final CheckHandler checkHandler;
-
 	//**********************************************************************
 	// Constructors and Finalizer
 	//**********************************************************************
@@ -89,8 +87,6 @@ public final class EditorPane extends AbstractPane {
 		actionHandler = new ActionHandler();
 
 		genreChanger = new GenreChanger();
-
-		checkHandler = new CheckHandler();
 
 		setBase(buildPane());
 	}
@@ -336,17 +332,7 @@ public final class EditorPane extends AbstractPane {
 	// TODO #9b: In the classes you added, implement the event handling method
 	// to get the modified information in the relevant widget and use it to
 	// update the corresponding data attribute value in the model.
-
-	private final class CheckHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent event) {
-			if (event.getSource().equals(isAnimated))
-				controller.set("isAnimated", isAnimated.isSelected());
-			else if (event.getSource().equals(isColor))
-				controller.set("isColor", isColor.isSelected());
-		}
-	}
+	
 	private final class GenreChanger implements ListChangeListener {
 
 		public void onChanged(Change change) {
