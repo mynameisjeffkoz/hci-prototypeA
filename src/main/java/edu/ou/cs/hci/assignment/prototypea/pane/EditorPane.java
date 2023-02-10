@@ -453,6 +453,8 @@ public final class EditorPane extends AbstractPane {
 
     private Pane createLowerRight() {
         GridPane pane = new GridPane();
+        pane.setAlignment(Pos.TOP_LEFT);
+        pane.setGridLinesVisible(true);
         pane.setHgap(8);
         pane.setVgap(8);
 
@@ -469,11 +471,16 @@ public final class EditorPane extends AbstractPane {
         userAverage.setOnAction(actionHandler);
         pane.add(userAverage,3,0);
 
-        pane.add(new Label("Summary"),0,1);
+        pane.add(new Label("Summary:"),0,1);
         summaryField = new TextField();
         summaryField.setPrefColumnCount(15);
-        GridPane.setColumnSpan(summaryField,3);
-        pane.add(summaryField,1,1);
+        summaryField.setPrefHeight(200);
+        ScrollPane scroll = new ScrollPane();
+        scroll.setContent(summaryField);
+        scroll.setFitToWidth(true);
+        scroll.setPrefHeight(120);
+        GridPane.setColumnSpan(scroll,3);
+        pane.add(scroll,1,1);
 
         pane.setMaxWidth(300);
 
