@@ -29,6 +29,7 @@ import javafx.scene.layout.*;
 import edu.ou.cs.hci.assignment.prototypea.Controller;
 
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 //******************************************************************************
 
@@ -309,7 +310,16 @@ public final class EditorPane extends AbstractPane {
 	}
 
 	private Pane createYear() {
-		return null;
+		Pane pane = new FlowPane(Orientation.HORIZONTAL,8,8);
+
+		pane.getChildren().add(new Label("Year:"));
+
+		yearField = new TextField();
+		yearField.setPrefColumnCount(4);
+		yearField.setTextFormatter(new TextFormatter<String>(yearFilter));
+
+		pane.getChildren().add(yearField);
+		return pane;
 	}
 
 	//**********************************************************************
@@ -340,6 +350,12 @@ public final class EditorPane extends AbstractPane {
 	// TODO #9b: In the classes you added, implement the event handling method
 	// to get the modified information in the relevant widget and use it to
 	// update the corresponding data attribute value in the model.
+
+	UnaryOperator<TextFormatter.Change> yearFilter = change -> {
+		String input = change.getText();
+		return change;
+	};
+
 
 	private final class GenreChanger implements ListChangeListener {
 
