@@ -25,7 +25,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -33,7 +32,6 @@ import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
 import edu.ou.cs.hci.assignment.prototypea.Controller;
 
-import javax.swing.*;
 import java.util.function.UnaryOperator;
 
 //******************************************************************************
@@ -418,7 +416,7 @@ public final class EditorPane extends AbstractPane {
 
         yearField = new TextField();
         yearField.setPrefColumnCount(3);
-        yearField.setTextFormatter(new TextFormatter<String>(yearFilter));
+        yearField.setTextFormatter(new TextFormatter<String>(integerFilter));
         yearField.setOnAction(actionHandler);
 
         pane.getChildren().add(yearField);
@@ -459,6 +457,7 @@ public final class EditorPane extends AbstractPane {
         userRatings = new TextField();
         userRatings.setPrefColumnCount(4);
         userRatings.setOnAction(actionHandler);
+        userRatings.setTextFormatter(new TextFormatter<String>(integerFilter));
         pane.add(userRatings,1,0);
 
         pane.add(new Label("Average:"),2,0);
@@ -502,7 +501,7 @@ public final class EditorPane extends AbstractPane {
     // to get the modified information in the relevant widget and use it to
     // update the corresponding data attribute value in the model.
 
-    UnaryOperator<TextFormatter.Change> yearFilter = change -> {
+    UnaryOperator<TextFormatter.Change> integerFilter = change -> {
         String input = change.getText();
         if (input.matches("[0-9]*"))
             return change;
