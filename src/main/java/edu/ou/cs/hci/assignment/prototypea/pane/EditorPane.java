@@ -566,7 +566,7 @@ public final class EditorPane extends AbstractPane {
             } else if (source == imgSelect) {
                 String text = imgSelect.getText();
                 if (text.startsWith("Clicked")) {
-                    imgSelect.setText(text + " ");
+                    imgSelect.setText(text + "*");
                 } else
                     imgSelect.setText("Clicked");
             } else if (source == imgPath) {
