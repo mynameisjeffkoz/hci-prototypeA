@@ -72,10 +72,13 @@ public final class EditorPane extends AbstractPane {
 
 	private CheckBox isAnimated, isColor;
 
+	private TextField yearField;
+
 	// Handlers
 	private final ActionHandler actionHandler;
 
 	private final GenreChanger genreChanger;
+
 
 	//**********************************************************************
 	// Constructors and Finalizer
@@ -203,6 +206,7 @@ public final class EditorPane extends AbstractPane {
 		pane.add(createRuntimeSlider(), 1, 2);
 		pane.add(createGenrePane(), 1, 3);
 
+		pane.add(createYear(), 2, 0);
 		pane.add(createAnimated(),2,1);
 		pane.add(createColor(),2,2);
 		return pane;
@@ -304,6 +308,10 @@ public final class EditorPane extends AbstractPane {
 		return isColor;
 	}
 
+	private Pane createYear() {
+		return null;
+	}
+
 	//**********************************************************************
 	// Private Methods (Property Change Handlers)
 	//**********************************************************************
@@ -332,7 +340,7 @@ public final class EditorPane extends AbstractPane {
 	// TODO #9b: In the classes you added, implement the event handling method
 	// to get the modified information in the relevant widget and use it to
 	// update the corresponding data attribute value in the model.
-	
+
 	private final class GenreChanger implements ListChangeListener {
 
 		public void onChanged(Change change) {
