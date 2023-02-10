@@ -17,7 +17,6 @@ package edu.ou.cs.hci.assignment.prototypea.pane;
 //import java.lang.*;
 
 import edu.ou.cs.hci.resources.Resources;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,7 +31,6 @@ import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
 import edu.ou.cs.hci.assignment.prototypea.Controller;
 
-import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 
 //******************************************************************************
@@ -92,7 +90,7 @@ public final class EditorPane extends AbstractPane {
 
     private final GenreChanger genreChanger;
 
-    private final RatingChanger ratingChanger;
+    private final AgeRatingChanger ageRatingChanger;
 
     //**********************************************************************
     // Constructors and Finalizer
@@ -105,7 +103,7 @@ public final class EditorPane extends AbstractPane {
 
         genreChanger = new GenreChanger();
 
-        ratingChanger = new RatingChanger();
+        ageRatingChanger = new AgeRatingChanger();
 
         setBase(buildPane());
     }
@@ -130,7 +128,7 @@ public final class EditorPane extends AbstractPane {
 
         yearField.setText(String.format("%04d", (int) controller.get("year")));
 
-        selectRating((String) controller.get("ageRating"));
+        selectAgeRating((String) controller.get("ageRating"));
 
     }
 
@@ -167,7 +165,7 @@ public final class EditorPane extends AbstractPane {
         else if ("year".equals(key))
             yearField.setText(Integer.toString((int) value));
         else if ("ageRating".equals(key))
-            selectRating((String) value);
+            selectAgeRating((String) value);
         else if ("posterPath".equals(key))
             imgPath.setText((String) value);
 
@@ -191,9 +189,8 @@ public final class EditorPane extends AbstractPane {
         outerPane.setBorder(outerBorder);
 
         GridPane upperGrid = new GridPane();
-        upperGrid.setOpaqueInsets(new Insets(20));
 
-        upperGrid.setAlignment(Pos.TOP_LEFT);
+        upperGrid.setAlignment(Pos.CENTER);
         upperGrid.setHgap(8.0);
         upperGrid.setVgap(8.0);
 
@@ -201,11 +198,13 @@ public final class EditorPane extends AbstractPane {
         Label directorLabel = new Label("Director:");
         Label runtimeLabel = new Label("Runtime:");
         Label genreLabel = new Label("Genre:");
+        Label awardLabel = new Label("Awards:");
 
         upperGrid.add(titleLabel, 0, 0);
         upperGrid.add(directorLabel, 0, 1);
         upperGrid.add(runtimeLabel, 0, 2);
         upperGrid.add(genreLabel, 0, 3);
+        upperGrid.add(awardLabel,0,4);
 
         upperGrid.add(createTitle(), 1, 0);
         upperGrid.add(createDirector(), 1, 1);
@@ -216,7 +215,9 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(createYear(), 2, 0);
         upperGrid.add(createAnimated(), 2, 1);
         upperGrid.add(createColor(), 2, 2);
-        upperGrid.add(createRating(), 2, 3);
+        upperGrid.add(createAgeRating(), 2, 3);
+
+
 
 
         Pane posterPane = createImagePane();
@@ -228,6 +229,7 @@ public final class EditorPane extends AbstractPane {
         upperGrid.setBorder(gridBorder);
 
         outerPane.setTop(upperGrid);
+
         return outerPane;
     }
 
@@ -303,7 +305,7 @@ public final class EditorPane extends AbstractPane {
         return pane;
     }
 
-    private Pane createRating() {
+    private Pane createAgeRating() {
         Pane pane = new HBox(8);
         pane.getChildren().add(new Label("Rating:"));
 
@@ -311,7 +313,7 @@ public final class EditorPane extends AbstractPane {
         pane.getChildren().add(flowPane);
 
         ratingGroup = new ToggleGroup();
-        ratingGroup.selectedToggleProperty().addListener(ratingChanger);
+        ratingGroup.selectedToggleProperty().addListener(ageRatingChanger);
 
         gButton = new RadioButton("G");
         gButton.setToggleGroup(ratingGroup);
@@ -435,7 +437,7 @@ public final class EditorPane extends AbstractPane {
         return null;
     };
 
-    private final void selectRating(String rating) {
+    private final void selectAgeRating(String rating) {
         ObservableList<Toggle> toggles = ratingGroup.getToggles();
         for (Toggle toggle : toggles) {
             RadioButton button = (RadioButton) toggle;
@@ -455,7 +457,7 @@ public final class EditorPane extends AbstractPane {
         }
     }
 
-    private final class RatingChanger implements ChangeListener<Toggle> {
+    private final class AgeRatingChanger implements ChangeListener<Toggle> {
 
         @Override
         public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
