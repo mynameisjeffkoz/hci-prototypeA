@@ -16,6 +16,7 @@ package edu.ou.cs.hci.assignment.prototypea.pane;
 
 //import java.lang.*;
 
+import edu.ou.cs.hci.resources.Resources;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,6 +28,7 @@ import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
+import javafx.scene.image.ImageView;
 import edu.ou.cs.hci.assignment.prototypea.Controller;
 
 import java.util.ArrayList;
@@ -80,6 +82,10 @@ public final class EditorPane extends AbstractPane {
 
     private RadioButton gButton, pgButton, pg13Button, rButton;
 
+    private Button imgSelect;
+
+    private TextField imgPath;
+
     // Handlers
     private final ActionHandler actionHandler;
 
@@ -126,27 +132,6 @@ public final class EditorPane extends AbstractPane {
         selectRating((String) controller.get("ageRating"));
 
     }
-
-    // TODO #5: Write code to detach widgets from any model properties (or other
-    // resources) it has been using, in preparation for removing and destroying
-    // the widget object. For Prototype A there's nothing to do for this step
-    // since we only detach a widget when its window closes or the program ends.
-
-    // TODO #6: Write code to remove widgets from the layout hierarchy. For
-    // Prototype A there's nothing to do for this step since we only remove a
-    // widget when its window closes or the program ends, and in those cases
-    // JavaFX does the necessary cleanup automatically.
-
-    // TODO #7: Write code to unregister each widget from any event listeners
-    // and/or property change handlers it was registered with in TODO #2.
-
-    // TODO #8: Write code to actually destroy the widget objects. There is
-    // nothing to do here (in Prototype A or otherwise) since Java uses garbage
-    // collection to destroy objects and reclaim any memory allocated for them.
-
-    // The controller calls this method when it removes a view.
-    // Unregister event and property listeners for the nodes in the view.
-
 
     // TODO #10: Write code to take any changes to data attribute values in the
     // model and update the corresponding widgets. The Model and Controller
@@ -227,6 +212,12 @@ public final class EditorPane extends AbstractPane {
         pane.add(createAnimated(), 2, 1);
         pane.add(createColor(), 2, 2);
         pane.add(createRating(), 2, 3);
+
+        Pane posterPane = createImagePane();
+        GridPane.setRowSpan(posterPane, 4);
+        pane.add(posterPane,3,0);
+
+
         return pane;
     }
 
@@ -367,6 +358,22 @@ public final class EditorPane extends AbstractPane {
 
         pane.getChildren().add(yearField);
         return pane;
+    }
+
+    private Pane createImagePane() {
+        Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
+
+        ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
+        pane.getChildren().add(posterView);
+
+        imgSelect = new Button("Select Image");
+        pane.getChildren().add(imgSelect);
+
+        imgPath = new TextField();
+        pane.getChildren().add(imgPath);
+
+        return pane;
+
     }
 
     //**********************************************************************
