@@ -122,6 +122,8 @@ public final class EditorPane extends AbstractPane {
 
 		yearField.setText(String.format("%04d", (int) controller.get("year")));
 
+		selectRating((String) controller.get("ageRating"));
+
 	}
 
 	// TODO #5: Write code to detach widgets from any model properties (or other
@@ -178,11 +180,14 @@ public final class EditorPane extends AbstractPane {
 			System.out.println("Reenable listener");
 		}
 		else if ("isAnimated".equals(key))
-			 isAnimated.setSelected((Boolean) value);
+			isAnimated.setSelected((Boolean) value);
 		else if ("isColor".equals(key))
-			 isColor.setSelected((Boolean) value);
+			isColor.setSelected((Boolean) value);
 		else if ("year".equals(key))
-			 yearField.setText(Integer.toString((int) value));
+			yearField.setText(Integer.toString((int) value));
+		else if ("ageRating".equals(key)) {
+			selectRating((String) value);
+		 }
 
 	}
 
@@ -400,6 +405,14 @@ public final class EditorPane extends AbstractPane {
 		return null;
 	};
 
+	private final void selectRating(String rating) {
+		ObservableList<Toggle> toggles = ratingGroup.getToggles();
+		for (Toggle toggle:toggles) {
+			RadioButton button = (RadioButton) toggle;
+			if (rating != null && button.getText().equals(rating))
+				ratingGroup.selectToggle(button);
+		}
+	}
 
 	private final class GenreChanger implements ListChangeListener {
 
@@ -418,7 +431,7 @@ public final class EditorPane extends AbstractPane {
 		public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
 			if (ratingGroup.getSelectedToggle() != null) {
 				RadioButton selcted = (RadioButton) ratingGroup.getSelectedToggle();
-				controller.set("rating", selcted.getText());
+				controller.set("ageRating", selcted.getText());
 			}
 
 		}
