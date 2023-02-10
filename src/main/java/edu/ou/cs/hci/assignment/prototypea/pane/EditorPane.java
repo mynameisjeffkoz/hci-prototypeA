@@ -26,7 +26,6 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
@@ -296,7 +295,6 @@ public final class EditorPane extends AbstractPane {
     private Pane createRating() {
         Pane pane = new HBox(8);
         pane.getChildren().add(new Label("Rating:"));
-        pane.setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), new Insets(0))));
 
         Pane flowPane = new FlowPane(Orientation.VERTICAL, 8, 8);
         pane.getChildren().add(flowPane);
@@ -341,20 +339,17 @@ public final class EditorPane extends AbstractPane {
     private CheckBox createAnimated() {
         isAnimated = new CheckBox("Animated");
         isAnimated.setOnAction(actionHandler);
-        isAnimated.setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), new Insets(0))));
         return isAnimated;
     }
 
     private CheckBox createColor() {
         isColor = new CheckBox("Color");
         isColor.setOnAction(actionHandler);
-        isColor.setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), new Insets(0))));
         return isColor;
     }
 
     private Pane createYear() {
         Pane pane = new FlowPane(Orientation.HORIZONTAL, 8, 8);
-        pane.setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), new Insets(0))));
 
         pane.setMaxWidth(100);
         pane.getChildren().add(new Label("Year:"));
@@ -370,8 +365,6 @@ public final class EditorPane extends AbstractPane {
 
     private Pane createImagePane() {
         FlowPane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
-        //TODO: Remove this line
-        pane.setBackground(new Background(new BackgroundFill(Color.BLUE,new CornerRadii(0),new Insets(0))));
         pane.setColumnHalignment(HPos.CENTER);
 
         //pane.setMaxHeight(230);
