@@ -60,14 +60,6 @@ public final class EditorPane extends AbstractPane {
 	// Private Members
 	//**********************************************************************
 
-
-	// TODO: Remove the old widgets
-	private Slider slider;
-
-	private Spinner<Integer> spinner;
-
-	private TextField textField;
-
 	private TextField titleField;
 
 	private TextField directorField;
@@ -77,7 +69,6 @@ public final class EditorPane extends AbstractPane {
 	private TextField runtimeDisplay;
 
 	private ListView<String> genreList;
-
 
 	private CheckBox isAnimated, isColor;
 
@@ -115,13 +106,6 @@ public final class EditorPane extends AbstractPane {
 	// Set up the nodes in the view with data accessed through the controller.
 	public void initialize() {
 		// Widget Gallery, Slider
-		slider.setValue((Double) controller.get("myDouble"));
-
-		// Widget Gallery, Spinner
-		spinner.getValueFactory().setValue((Integer) controller.get("myInt"));
-
-		// Widget Gallery, Text Field
-		textField.setText((String) controller.get("myString"));
 
 		titleField.setText((String) controller.get("title"));
 
@@ -150,16 +134,7 @@ public final class EditorPane extends AbstractPane {
 
 	// The controller calls this method when it removes a view.
 	// Unregister event and property listeners for the nodes in the view.
-	public void terminate() {
-		// Widget Gallery, Slider
-		slider.valueProperty().removeListener(this::changeDecimal);
 
-		// Widget Gallery, Spinner
-		spinner.valueProperty().removeListener(this::changeInteger);
-
-		// Widget Gallery, Text Field
-		textField.setOnAction(null);
-	}
 
 	// TODO #10: Write code to take any changes to data attribute values in the
 	// model and update the corresponding widgets. The Model and Controller
@@ -172,14 +147,7 @@ public final class EditorPane extends AbstractPane {
 	// Update the nodes in the view to reflect the change.
 	public void update(String key, Object value) {
 		//System.out.println("update " + key + " to " + value);
-
-		if ("myDouble".equals(key)) {
-			slider.setValue((Double) value);
-		} else if ("myInt".equals(key)) {
-			spinner.getValueFactory().setValue((Integer) value);
-		} else if ("myString".equals(key)) {
-			textField.setText((String) value);
-		} else if ("title".equals(key))
+		 if ("title".equals(key))
 			titleField.setText((String) value);
 		else if ("director".equals(key))
 			directorField.setText((String) value);
@@ -217,21 +185,13 @@ public final class EditorPane extends AbstractPane {
 	// likely to find BorderPane, GridPane, HBox, StackPane, VBox most useful. 
 
 	private Pane buildPane() {
-		// Layout the widgets in a vertical flow with small gaps between them.
-		//FlowPane	pane = new FlowPane(Orientation.VERTICAL, 8.0, 8.0);
 
 		GridPane pane = new GridPane();
 
 		pane.setAlignment(Pos.TOP_LEFT);
 		pane.setHgap(8.0);
 		pane.setVgap(8.0);
-		//TODO: Remove these
-		createSlider();
-		createSpinner();
-		createTextField();
 
-		//pane.getChildren().add(createTitle());
-		//pane.getChildren().add(createDirector());
 		Label titleLabel = new Label("Title:");
 		Label directorLabel = new Label("Director:");
 		Label runtimeLabel = new Label("Runtime:");
@@ -348,46 +308,6 @@ public final class EditorPane extends AbstractPane {
 		return isColor;
 	}
 
-	// Create a pane with a slider for the gallery. The progress bar and
-	// slider show the same value from the model, so are synchronized.
-	private Pane createSlider() {
-		slider = new Slider(0.0, 100.0, 0.0);
-
-		slider.setOrientation(Orientation.HORIZONTAL);
-		slider.setMajorTickUnit(20.0);
-		slider.setMinorTickCount(4);
-		slider.setShowTickLabels(true);
-		slider.setShowTickMarks(true);
-
-		slider.valueProperty().addListener(this::changeDecimal);
-
-		return createTitledPane(slider, "Slider");
-	}
-
-	// Create a pane with a spinner for the gallery. The progress bar,
-	// slider, and spinner show the same value from the model, so stay synced.
-	private Pane createSpinner() {
-		spinner = new Spinner<Integer>(0, 100, 0, 1);
-
-		spinner.setEditable(true);
-		spinner.getEditor().setPrefColumnCount(4);
-
-		spinner.valueProperty().addListener(this::changeInteger);
-
-		return createTitledPane(spinner, "Spinner");
-	}
-
-	// Create a pane with a text field for the gallery.
-	private Pane createTextField() {
-		textField = new TextField();
-
-		textField.setPrefColumnCount(6);
-
-		textField.setOnAction(actionHandler);
-
-		return createTitledPane(textField, "Text Field");
-	}
-
 	//**********************************************************************
 	// Private Methods (Property Change Handlers)
 	//**********************************************************************
@@ -398,18 +318,6 @@ public final class EditorPane extends AbstractPane {
 	// TODO #9a: In the methods you added, implement code to pass the modified
 	// value of the observed property to the corresponding data attribute value
 	// in the model.
-
-	private void changeDecimal(ObservableValue<? extends Number> observable,
-							   Number oldValue, Number newValue) {
-		if (observable == slider.valueProperty())
-			controller.set("myDouble", newValue);
-	}
-
-	private void changeInteger(ObservableValue<? extends Number> observable,
-							   Number oldValue, Number newValue) {
-		if (observable == spinner.valueProperty())
-			controller.set("myInt", newValue);
-	}
 
 	private void changeRuntime(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 		if (observable == runtimeSlider.valueProperty()) {
@@ -455,9 +363,7 @@ public final class EditorPane extends AbstractPane {
 		public void handle(ActionEvent e) {
 			Object source = e.getSource();
 
-			if (source == textField)
-				controller.set("myString", textField.getText());
-			else if (source == titleField)
+			if (source == titleField)
 				controller.set("title", titleField.getText());
 			else if (source == directorField)
 				controller.set("director", directorField.getText());

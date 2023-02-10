@@ -71,12 +71,6 @@ public final class Model
 		properties.put("title","Title");
 		properties.put("year", "YYYY");
 
-
-		//TODO: Remove these when finished
-		// Parameters accessed and/or modified by EditorPane controls
-		properties.put("myDouble",		5.0);
-		properties.put("myInt",		5);
-		properties.put("myString",		"123abc");
 	}
 
 	//**********************************************************************
