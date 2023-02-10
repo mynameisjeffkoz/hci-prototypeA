@@ -169,9 +169,11 @@ public final class EditorPane extends AbstractPane {
 			System.out.println("Reenable listener");
 		}
 		else if ("isAnimated".equals(key))
-			isAnimated.setSelected((Boolean)value);
+			 isAnimated.setSelected((Boolean) value);
 		else if ("isColor".equals(key))
-			isColor.setSelected((Boolean)value);
+			 isColor.setSelected((Boolean) value);
+		else if ("year".equals(key))
+			 yearField.setText(Integer.toString((int) value));
 
 	}
 
