@@ -88,7 +88,7 @@ public final class EditorPane extends AbstractPane {
 
     private TextField imgPath;
 
-    private TextField userRatings, userAverage;
+    private TextField userRatings, userAverage, summaryField;
 
     // Handlers
     private final ActionHandler actionHandler;
@@ -238,9 +238,10 @@ public final class EditorPane extends AbstractPane {
         GridPane.setRowSpan(posterPane, 4);
         upperGrid.add(posterPane, 3, 0);
 
-        Pane userRatingPane = createUserRating();
-        GridPane.setColumnSpan(userRatingPane,2);
-        upperGrid.add(userRatingPane,2,4);
+        Pane lowerRightPane = createLowerRight();
+        GridPane.setColumnSpan(lowerRightPane,2);
+        GridPane.setRowSpan(lowerRightPane,2);
+        upperGrid.add(lowerRightPane,2,4);
 
         BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
@@ -450,7 +451,7 @@ public final class EditorPane extends AbstractPane {
 
     }
 
-    private Pane createUserRating() {
+    private Pane createLowerRight() {
         GridPane pane = new GridPane();
         pane.setHgap(8);
         pane.setVgap(8);
