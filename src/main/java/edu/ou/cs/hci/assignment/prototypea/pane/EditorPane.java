@@ -364,6 +364,8 @@ public final class EditorPane extends AbstractPane {
     private Pane createImagePane() {
         Pane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
 
+        pane.setMaxHeight(300);
+
         ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
         posterView.setPreserveRatio(true);
         posterView.setFitWidth(120);
