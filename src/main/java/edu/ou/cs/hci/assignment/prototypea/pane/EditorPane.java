@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
@@ -363,6 +364,7 @@ public final class EditorPane extends AbstractPane {
 
     private Pane createImagePane() {
         Pane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
+        pane.setBackground(new Background(new BackgroundFill(Color.BLUE,new CornerRadii(0),new Insets(0))));
 
         pane.setMaxHeight(300);
 
