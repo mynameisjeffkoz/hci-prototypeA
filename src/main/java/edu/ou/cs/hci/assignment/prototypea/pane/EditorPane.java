@@ -469,6 +469,12 @@ public final class EditorPane extends AbstractPane {
         userAverage.setOnAction(actionHandler);
         pane.add(userAverage,3,0);
 
+        pane.add(new Label("Summary"),0,1);
+        summaryField = new TextField();
+        summaryField.setPrefColumnCount(15);
+        GridPane.setColumnSpan(summaryField,3);
+        pane.add(summaryField,1,1);
+
         pane.setMaxWidth(300);
 
 
