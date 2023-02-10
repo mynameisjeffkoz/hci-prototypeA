@@ -73,7 +73,7 @@ public final class EditorPane extends AbstractPane {
 
     private ListView<String> genreList;
 
-    private CheckBox isAnimated, isColor;
+    private CheckBox isAnimated, isColor, awardPicture, awardDirecting, awardCinematography, awardActing;
 
     private TextField yearField;
 
@@ -210,6 +210,7 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(createDirector(), 1, 1);
         upperGrid.add(createRuntimeSlider(), 1, 2);
         upperGrid.add(createGenrePane(), 1, 3);
+        upperGrid.add(createAwardPane(),1,4);
 
 
         upperGrid.add(createYear(), 2, 0);
@@ -347,6 +348,13 @@ public final class EditorPane extends AbstractPane {
         genreList.setMaxHeight(100);
 
         return genreList;
+    }
+
+    private Pane createAwardPane() {
+
+        Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
+
+        return pane;
     }
 
     private CheckBox createAnimated() {

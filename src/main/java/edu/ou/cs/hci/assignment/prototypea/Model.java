@@ -53,7 +53,7 @@ public final class Model
 		// Create a property for each of the 17 editable data
 		// attributes from the table in Design A. (The table has 19 rows, but
 		// 2 of them are merely for helper widgets to load and show the poster.)
-		properties.put("reviewAvg", 0.0);
+		properties.put("userRatingAvg", 0.0);
 		properties.put("awardPicture", false);
 		properties.put("awardDirecting", false);
 		properties.put("awardCinematography", false);
@@ -63,7 +63,7 @@ public final class Model
 		properties.put("genre", FXCollections.observableArrayList());
 		properties.put("isAnimated", false);
 		properties.put("isColor", false);
-		properties.put("numReviews",0);
+		properties.put("numUserRatings",0);
 		properties.put("posterPath", "Path");
 		properties.put("ageRating", "NR");
 		properties.put("runtime", 120);
