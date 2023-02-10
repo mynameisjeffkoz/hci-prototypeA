@@ -185,7 +185,13 @@ public final class EditorPane extends AbstractPane {
 
     private Pane buildPane() {
 
+        BorderPane outerPane = new BorderPane();
+        BorderStroke outerBorderSroke = new BorderStroke(Color.DARKGRAY,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(20));
+        Border outerBorder = new Border(outerBorderSroke);
+        outerPane.setBorder(outerBorder);
+
         GridPane upperGrid = new GridPane();
+        upperGrid.setOpaqueInsets(new Insets(20));
 
         upperGrid.setAlignment(Pos.TOP_LEFT);
         upperGrid.setHgap(8.0);
@@ -217,11 +223,12 @@ public final class EditorPane extends AbstractPane {
         GridPane.setRowSpan(posterPane, 4);
         upperGrid.add(posterPane, 3, 0);
 
-        BorderStroke gridBorderStroke = new BorderStroke(Color.DARKGRAY,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(20));
+        BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
         upperGrid.setBorder(gridBorder);
 
-        return upperGrid;
+        outerPane.setTop(upperGrid);
+        return outerPane;
     }
 
     //**********************************************************************
