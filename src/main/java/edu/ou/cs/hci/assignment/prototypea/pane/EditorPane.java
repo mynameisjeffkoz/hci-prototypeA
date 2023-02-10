@@ -372,9 +372,11 @@ public final class EditorPane extends AbstractPane {
         pane.getChildren().add(posterView);
 
         imgSelect = new Button("Select Image");
+        imgSelect.setOnAction(actionHandler);
         pane.getChildren().add(imgSelect);
 
         imgPath = new TextField();
+        imgPath.setOnAction(actionHandler);
         pane.getChildren().add(imgPath);
 
         pane.setMaxWidth(250);
@@ -471,6 +473,17 @@ public final class EditorPane extends AbstractPane {
                     controller.set("year", 2040);
                 else
                     controller.set("year", year);
+            }
+            else if (source == imgSelect) {
+                String text = imgSelect.getText();
+                if (text.startsWith("Clicked")) {
+                    imgSelect.setText(text + " ");
+                }
+                else
+                    imgSelect.setText("Clicked");
+            }
+            else if (source == imgPath) {
+                controller.set("posterPath", imgPath.getText());
             }
         }
     }
