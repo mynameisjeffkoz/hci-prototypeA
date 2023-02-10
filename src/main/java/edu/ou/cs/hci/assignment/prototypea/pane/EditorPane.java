@@ -369,15 +369,16 @@ public final class EditorPane extends AbstractPane {
     }
 
     private Pane createImagePane() {
-        Pane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
+        FlowPane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
         //TODO: Remove this line
         pane.setBackground(new Background(new BackgroundFill(Color.BLUE,new CornerRadii(0),new Insets(0))));
+        pane.setColumnHalignment(HPos.CENTER);
 
-        pane.setMaxHeight(300);
+        //pane.setMaxHeight(230);
 
         ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
         posterView.setPreserveRatio(true);
-        posterView.setFitWidth(120);
+        posterView.setFitWidth(110);
         pane.getChildren().add(posterView);
 
         imgSelect = new Button("Select Image");
@@ -388,7 +389,8 @@ public final class EditorPane extends AbstractPane {
         imgPath.setOnAction(actionHandler);
         pane.getChildren().add(imgPath);
 
-        pane.setMaxWidth(250);
+        pane.setMaxHeight(230);
+
         return pane;
 
     }
