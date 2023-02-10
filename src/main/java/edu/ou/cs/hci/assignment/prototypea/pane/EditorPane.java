@@ -607,6 +607,17 @@ public final class EditorPane extends AbstractPane {
                         || source == awardCinematography ||source == awardActing) {
                 updateAwardState((CheckBox) source);
             }
+            else if (source == userRatings)
+                controller.set("numUserRatings", Integer.parseInt(userRatings.getText()));
+            else if (source == userAverage) {
+                Double avg;
+                try {
+                    avg = Double.parseDouble(userAverage.getText());
+                    controller.set("userRatingAvg", avg);
+                } catch (NumberFormatException exception) {
+                    userRatings.setText(Double.toString((Double)controller.get("userRatingAvg")));
+                }
+            }
         }
     }
 
