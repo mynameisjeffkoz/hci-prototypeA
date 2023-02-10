@@ -332,6 +332,7 @@ public final class EditorPane extends AbstractPane {
         genreList.setItems(genres);
         genreList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         genreList.getSelectionModel().getSelectedIndices().addListener(genreChanger);
+        genreList.setMaxHeight(100);
 
         return genreList;
     }
