@@ -77,10 +77,14 @@ public final class EditorPane extends AbstractPane {
 
 	private ToggleGroup ratingGroup;
 
+	private RadioButton gButton, pgButton, pg13Button, rButton;
+
 	// Handlers
 	private final ActionHandler actionHandler;
 
 	private final GenreChanger genreChanger;
+
+	private final RatingChanger ratingChanger;
 
 	//**********************************************************************
 	// Constructors and Finalizer
@@ -92,6 +96,8 @@ public final class EditorPane extends AbstractPane {
 		actionHandler = new ActionHandler();
 
 		genreChanger = new GenreChanger();
+
+		ratingChanger = new RatingChanger();
 
 		setBase(buildPane());
 	}
@@ -299,20 +305,21 @@ public final class EditorPane extends AbstractPane {
 		pane.getChildren().add(flowPane);
 
 		ratingGroup = new ToggleGroup();
+		ratingGroup.selectedToggleProperty().addListener(ratingChanger);
 
-		RadioButton gButton = new RadioButton("G");
+		gButton = new RadioButton("G");
 		gButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(gButton);
 
-		RadioButton pgButton = new RadioButton("PG");
+		pgButton = new RadioButton("PG");
 		pgButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(pgButton);
 
-		RadioButton pg13Button = new RadioButton("PG-13");
+		pg13Button = new RadioButton("PG-13");
 		pg13Button.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(pg13Button);
 
-		RadioButton rButton = new RadioButton("R");
+		rButton = new RadioButton("R");
 		rButton.setToggleGroup(ratingGroup);
 		flowPane.getChildren().add(rButton);
 
@@ -405,6 +412,17 @@ public final class EditorPane extends AbstractPane {
 		}
 	}
 
+	private final class RatingChanger implements ChangeListener<Toggle> {
+
+		@Override
+		public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+			if (ratingGroup.getSelectedToggle() != null) {
+				RadioButton selcted = (RadioButton) ratingGroup.getSelectedToggle();
+				controller.set("rating", selcted.getText());
+			}
+
+		}
+	}
 	private final class ActionHandler
 			implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent e) {
