@@ -208,10 +208,12 @@ public final class EditorPane extends AbstractPane {
         pane.add(createRuntimeSlider(), 1, 2);
         pane.add(createGenrePane(), 1, 3);
 
+
         pane.add(createYear(), 2, 0);
         pane.add(createAnimated(), 2, 1);
         pane.add(createColor(), 2, 2);
         pane.add(createRating(), 2, 3);
+
 
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
@@ -349,6 +351,7 @@ public final class EditorPane extends AbstractPane {
     private Pane createYear() {
         Pane pane = new FlowPane(Orientation.HORIZONTAL, 8, 8);
 
+        pane.setMaxWidth(100);
         pane.getChildren().add(new Label("Year:"));
 
         yearField = new TextField();
@@ -364,6 +367,8 @@ public final class EditorPane extends AbstractPane {
         Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
 
         ImageView posterView = new ImageView(Resources.getFXImage("Avatar The Way of Water poster.jpg"));
+        posterView.setPreserveRatio(true);
+        posterView.setFitWidth(200);
         pane.getChildren().add(posterView);
 
         imgSelect = new Button("Select Image");
@@ -372,6 +377,7 @@ public final class EditorPane extends AbstractPane {
         imgPath = new TextField();
         pane.getChildren().add(imgPath);
 
+        pane.setMaxWidth(250);
         return pane;
 
     }
