@@ -183,8 +183,10 @@ public final class EditorPane extends AbstractPane {
             else if (key.contains("Acting"))
                 setAwardCheck(awardActing,(Model.Award) value);
         }
-
-
+        else if ("numUserRatings".equals(key))
+            userRatings.setText(Integer.toString((Integer)value));
+        else if ("userRatingAvg".equals(key))
+            userAverage.setText(Double.toString((Double)value));
     }
 
     //**********************************************************************
@@ -613,10 +615,13 @@ public final class EditorPane extends AbstractPane {
                 Double avg;
                 try {
                     avg = Double.parseDouble(userAverage.getText());
-                    controller.set("userRatingAvg", avg);
-                } catch (NumberFormatException exception) {
-                    userRatings.setText(Double.toString((Double)controller.get("userRatingAvg")));
-                }
+                    if (avg < 0)
+                        controller.set("userRatingAvg", 0.0);
+                    else if (avg > 10)
+                        controller.set("userRatingAvg", 10.0);
+                    else
+                        controller.set("userRatingAvg", avg);
+                } catch (NumberFormatException exception) {}
             }
         }
     }
