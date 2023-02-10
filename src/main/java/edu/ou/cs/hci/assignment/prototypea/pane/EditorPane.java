@@ -353,7 +353,9 @@ public final class EditorPane extends AbstractPane {
 
 	UnaryOperator<TextFormatter.Change> yearFilter = change -> {
 		String input = change.getText();
-		return change;
+		if (input.matches("[0-9]*"))
+			return change;
+		return null;
 	};
 
 
