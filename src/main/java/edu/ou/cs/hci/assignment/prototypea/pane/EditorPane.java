@@ -315,7 +315,7 @@ public final class EditorPane extends AbstractPane {
 		pane.getChildren().add(new Label("Year:"));
 
 		yearField = new TextField();
-		yearField.setPrefColumnCount(4);
+		yearField.setPrefColumnCount(3);
 		yearField.setTextFormatter(new TextFormatter<String>(yearFilter));
 
 		pane.getChildren().add(yearField);
