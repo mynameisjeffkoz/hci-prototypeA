@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
@@ -88,7 +89,9 @@ public final class EditorPane extends AbstractPane {
 
     private TextField imgPath;
 
-    private TextField userRatings, userAverage, summaryField;
+    private TextField userRatings, userAverage;
+
+    private TextArea summaryField;
 
     // Handlers
     private final ActionHandler actionHandler;
@@ -96,6 +99,8 @@ public final class EditorPane extends AbstractPane {
     private final GenreChanger genreChanger;
 
     private final AgeRatingChanger ageRatingChanger;
+
+    private final TextAreaHandler textAreaHandler;
 
     //**********************************************************************
     // Constructors and Finalizer
@@ -109,6 +114,8 @@ public final class EditorPane extends AbstractPane {
         genreChanger = new GenreChanger();
 
         ageRatingChanger = new AgeRatingChanger();
+
+        textAreaHandler = new TextAreaHandler();
 
         setBase(buildPane());
     }
@@ -179,14 +186,15 @@ public final class EditorPane extends AbstractPane {
             else if (key.contains("Directing"))
                 setAwardCheck(awardDirecting, (Model.Award) value);
             else if (key.contains("Cinematography"))
-                setAwardCheck(awardCinematography,(Model.Award) value);
+                setAwardCheck(awardCinematography, (Model.Award) value);
             else if (key.contains("Acting"))
-                setAwardCheck(awardActing,(Model.Award) value);
-        }
-        else if ("numUserRatings".equals(key))
-            userRatings.setText(Integer.toString((Integer)value));
+                setAwardCheck(awardActing, (Model.Award) value);
+        } else if ("numUserRatings".equals(key))
+            userRatings.setText(Integer.toString((Integer) value));
         else if ("userRatingAvg".equals(key))
-            userAverage.setText(Double.toString((Double)value));
+            userAverage.setText(Double.toString((Double) value));
+        else if ("summary".equals(key))
+            summaryField.setText((String) value);
     }
 
     //**********************************************************************
@@ -201,7 +209,7 @@ public final class EditorPane extends AbstractPane {
     private Pane buildPane() {
 
         BorderPane outerPane = new BorderPane();
-        BorderStroke outerBorderSroke = new BorderStroke(Color.DARKGRAY,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(20));
+        BorderStroke outerBorderSroke = new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.DEFAULT_WIDTHS, new Insets(20));
         Border outerBorder = new Border(outerBorderSroke);
         outerPane.setBorder(outerBorder);
 
@@ -221,13 +229,13 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(directorLabel, 0, 1);
         upperGrid.add(runtimeLabel, 0, 2);
         upperGrid.add(genreLabel, 0, 3);
-        upperGrid.add(awardLabel,0,4);
+        upperGrid.add(awardLabel, 0, 4);
 
         upperGrid.add(createTitle(), 1, 0);
         upperGrid.add(createDirector(), 1, 1);
         upperGrid.add(createRuntimeSlider(), 1, 2);
         upperGrid.add(createGenrePane(), 1, 3);
-        upperGrid.add(createAwardPane(),1,4);
+        upperGrid.add(createAwardPane(), 1, 4);
 
         upperGrid.add(createYear(), 2, 0);
         upperGrid.add(createAnimated(), 2, 1);
@@ -239,11 +247,11 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(posterPane, 3, 0);
 
         Pane lowerRightPane = createLowerRight();
-        GridPane.setColumnSpan(lowerRightPane,2);
-        GridPane.setRowSpan(lowerRightPane,2);
-        upperGrid.add(lowerRightPane,2,4);
+        GridPane.setColumnSpan(lowerRightPane, 2);
+        GridPane.setRowSpan(lowerRightPane, 2);
+        upperGrid.add(lowerRightPane, 2, 4);
 
-        BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.DEFAULT_WIDTHS,new Insets(8));
+        BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.DEFAULT_WIDTHS, new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
         upperGrid.setBorder(gridBorder);
 
@@ -372,7 +380,7 @@ public final class EditorPane extends AbstractPane {
 
     private Pane createAwardPane() {
 
-        Pane pane = new FlowPane(Orientation.VERTICAL,8,8);
+        Pane pane = new FlowPane(Orientation.VERTICAL, 8, 8);
 
         awardPicture = new CheckBox("Picture");
         awardPicture.setAllowIndeterminate(true);
@@ -458,29 +466,32 @@ public final class EditorPane extends AbstractPane {
         pane.setHgap(8);
         pane.setVgap(8);
 
-        pane.add(new Label ("Ratings:"),0,0);
+        pane.add(new Label("Ratings:"), 0, 0);
         userRatings = new TextField();
         userRatings.setPrefColumnCount(4);
         userRatings.setOnAction(actionHandler);
         userRatings.setTextFormatter(new TextFormatter<String>(integerFilter));
-        pane.add(userRatings,1,0);
+        pane.add(userRatings, 1, 0);
 
-        pane.add(new Label("Average:"),2,0);
+        pane.add(new Label("Average:"), 2, 0);
         userAverage = new TextField();
         userAverage.setPrefColumnCount(3);
         userAverage.setOnAction(actionHandler);
-        pane.add(userAverage,3,0);
+        pane.add(userAverage, 3, 0);
 
-        pane.add(new Label("Summary:"),0,1);
-        summaryField = new TextField();
+        pane.add(new Label("Summary:"), 0, 1);
+        summaryField = new TextArea();
         summaryField.setPrefColumnCount(15);
         summaryField.setPrefHeight(200);
+        summaryField.setWrapText(true);
         ScrollPane scroll = new ScrollPane();
         scroll.setContent(summaryField);
         scroll.setFitToWidth(true);
         scroll.setPrefHeight(120);
-        GridPane.setColumnSpan(scroll,3);
-        pane.add(scroll,1,1);
+        GridPane.setColumnSpan(scroll, 3);
+        summaryField.setOnMouseExited(textAreaHandler);
+        //summaryField.setOnAction(actionHandler);
+        pane.add(scroll, 1, 1);
 
         pane.setMaxWidth(300);
 
@@ -586,7 +597,7 @@ public final class EditorPane extends AbstractPane {
             check.setIndeterminate(true);
         else
             check.setIndeterminate(false);
-            check.setSelected(state.equals(Model.Award.TRUE));
+        check.setSelected(state.equals(Model.Award.TRUE));
     }
 
     private final class ActionHandler
@@ -618,12 +629,10 @@ public final class EditorPane extends AbstractPane {
                     imgSelect.setText("Clicked");
             } else if (source == imgPath) {
                 controller.set("posterPath", imgPath.getText());
-            }
-            else if (source == awardPicture || source == awardDirecting
-                        || source == awardCinematography ||source == awardActing) {
+            } else if (source == awardPicture || source == awardDirecting
+                    || source == awardCinematography || source == awardActing) {
                 updateAwardState((CheckBox) source);
-            }
-            else if (source == userRatings)
+            } else if (source == userRatings)
                 controller.set("numUserRatings", Integer.parseInt(userRatings.getText()));
             else if (source == userAverage) {
                 Double avg;
@@ -635,8 +644,19 @@ public final class EditorPane extends AbstractPane {
                         controller.set("userRatingAvg", 10.0);
                     else
                         controller.set("userRatingAvg", avg);
-                } catch (NumberFormatException exception) {}
+                } catch (NumberFormatException exception) {
+                }
             }
+        }
+    }
+
+    private final class TextAreaHandler implements EventHandler<MouseEvent> {
+
+        @Override
+        public void handle(MouseEvent event) {
+            Object source = event.getSource();
+            if (source == summaryField)
+                controller.set("summary", summaryField.getText());
         }
     }
 
