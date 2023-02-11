@@ -91,7 +91,7 @@ public final class EditorPane extends AbstractPane {
 
     private TextField userRatings, userAverage;
 
-    private TextArea summaryField;
+    private TextArea summaryField, commentField;
 
     // Handlers
     private final ActionHandler actionHandler;
@@ -224,12 +224,12 @@ public final class EditorPane extends AbstractPane {
         Label runtimeLabel = new Label("Runtime:");
         Label genreLabel = new Label("Genre:");
         Label awardLabel = new Label("Awards:");
+        Label commentLabel = new Label("Comments");
 
         upperGrid.add(titleLabel, 0, 0);
         upperGrid.add(directorLabel, 0, 1);
         upperGrid.add(runtimeLabel, 0, 2);
         upperGrid.add(genreLabel, 0, 3);
-        upperGrid.add(awardLabel, 0, 4);
 
         upperGrid.add(createTitle(), 1, 0);
         upperGrid.add(createDirector(), 1, 1);
@@ -250,6 +250,10 @@ public final class EditorPane extends AbstractPane {
         GridPane.setColumnSpan(lowerRightPane, 2);
         GridPane.setRowSpan(lowerRightPane, 2);
         upperGrid.add(lowerRightPane, 2, 4);
+
+        Pane commentsPane = createCommentsPane();
+        GridPane.setColumnSpan(commentsPane,2);
+        upperGrid.add(commentsPane,0,5);
 
         BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.DEFAULT_WIDTHS, new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
@@ -495,6 +499,25 @@ public final class EditorPane extends AbstractPane {
 
         pane.setMaxWidth(300);
 
+
+        return pane;
+    }
+
+    Pane createCommentsPane() {
+        GridPane pane = new GridPane();
+
+        pane.add(new Label("Comments:"),0,0);
+
+        commentField = new TextArea();
+        commentField.setWrapText(true);
+        commentField.setPrefColumnCount(24);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(commentField);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(120);
+
+        pane.add(scrollPane,0,1);
 
         return pane;
     }
