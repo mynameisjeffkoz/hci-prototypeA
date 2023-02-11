@@ -137,10 +137,37 @@ public final class EditorPane extends AbstractPane {
         directorField.setText((String) controller.get("director"));
 
         runtimeSlider.setValue((Integer) controller.get("runtime"));
+        runtimeDisplay.setText(Integer.toString((Integer)controller.get("runtime")));
 
         yearField.setText(String.format("%04d", (int) controller.get("year")));
 
         selectAgeRating((String) controller.get("ageRating"));
+
+        genreList.getSelectionModel().getSelectedIndices().removeListener(genreChanger);
+        ObservableList<Integer> list = (ObservableList<Integer>) controller.get("genre");
+        genreList.getSelectionModel().clearSelection();
+        for (Integer num:list)
+            genreList.getSelectionModel().select(num);
+        genreList.getSelectionModel().getSelectedIndices().addListener(genreChanger);
+
+        isAnimated.setSelected((boolean) controller.get("isAnimated"));
+
+        isColor.setSelected((boolean) controller.get("isAnimated"));
+
+        imgPath.setText((String)controller.get("posterPath"));
+
+        setAwardCheck(awardPicture, (Model.Award) controller.get("awardPicture"));
+        setAwardCheck(awardDirecting, (Model.Award) controller.get("awardDirecting"));
+        setAwardCheck(awardCinematography, (Model.Award) controller.get("awardCinematography"));
+        setAwardCheck(awardActing, (Model.Award) controller.get("awardActing"));
+
+        userAverage.setText(Double.toString((Double)controller.get("userRatingAvg")));
+
+        userRatings.setText(Integer.toString((Integer)controller.get("numUserRatings")));
+
+        summaryField.setText((String)controller.get("summary"));
+
+        commentField.setText((String)controller.get("comments"));
 
     }
 
@@ -215,11 +242,11 @@ public final class EditorPane extends AbstractPane {
         Border outerBorder = new Border(outerBorderSroke);
         outerPane.setBorder(outerBorder);
 
-        GridPane upperGrid = new GridPane();
+        GridPane outerGrid = new GridPane();
 
-        upperGrid.setAlignment(Pos.CENTER);
-        upperGrid.setHgap(8.0);
-        upperGrid.setVgap(8.0);
+        outerGrid.setAlignment(Pos.CENTER);
+        outerGrid.setHgap(8.0);
+        outerGrid.setVgap(8.0);
 
         Label titleLabel = new Label("Title:");
         Label directorLabel = new Label("Director:");
@@ -228,42 +255,40 @@ public final class EditorPane extends AbstractPane {
         Label awardLabel = new Label("Awards:");
         Label commentLabel = new Label("Comments");
 
-        upperGrid.add(titleLabel, 0, 0);
-        upperGrid.add(directorLabel, 0, 1);
-        upperGrid.add(runtimeLabel, 0, 2);
-        upperGrid.add(genreLabel, 0, 3);
+        outerGrid.add(titleLabel, 0, 0);
+        outerGrid.add(directorLabel, 0, 1);
+        outerGrid.add(runtimeLabel, 0, 2);
+        outerGrid.add(genreLabel, 0, 3);
 
-        upperGrid.add(createTitle(), 1, 0);
-        upperGrid.add(createDirector(), 1, 1);
-        upperGrid.add(createRuntimeSlider(), 1, 2);
-        upperGrid.add(createGenrePane(), 1, 3);
-        upperGrid.add(createAwardPane(), 1, 4);
+        outerGrid.add(createTitle(), 1, 0);
+        outerGrid.add(createDirector(), 1, 1);
+        outerGrid.add(createRuntimeSlider(), 1, 2);
+        outerGrid.add(createGenrePane(), 1, 3);
+        outerGrid.add(createAwardPane(), 1, 4);
 
-        upperGrid.add(createYear(), 2, 0);
-        upperGrid.add(createAnimated(), 2, 1);
-        upperGrid.add(createColor(), 2, 2);
-        upperGrid.add(createAgeRating(), 2, 3);
+        outerGrid.add(createYear(), 2, 0);
+        outerGrid.add(createAnimated(), 2, 1);
+        outerGrid.add(createColor(), 2, 2);
+        outerGrid.add(createAgeRating(), 2, 3);
 
         Pane posterPane = createImagePane();
         GridPane.setRowSpan(posterPane, 4);
-        upperGrid.add(posterPane, 3, 0);
+        outerGrid.add(posterPane, 3, 0);
 
         Pane lowerRightPane = createLowerRight();
         GridPane.setColumnSpan(lowerRightPane, 2);
         GridPane.setRowSpan(lowerRightPane, 2);
-        upperGrid.add(lowerRightPane, 2, 4);
+        outerGrid.add(lowerRightPane, 2, 4);
 
         Pane commentsPane = createCommentsPane();
         GridPane.setColumnSpan(commentsPane, 2);
-        upperGrid.add(commentsPane, 0, 5);
+        outerGrid.add(commentsPane, 0, 5);
 
         BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.DEFAULT_WIDTHS, new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
-        upperGrid.setBorder(gridBorder);
+        outerGrid.setBorder(gridBorder);
 
-        upperGrid.setGridLinesVisible(true);
-
-        outerPane.setTop(upperGrid);
+        outerPane.setTop(outerGrid);
 
         return outerPane;
     }
@@ -468,7 +493,6 @@ public final class EditorPane extends AbstractPane {
     private Pane createLowerRight() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.TOP_LEFT);
-        pane.setGridLinesVisible(true);
         pane.setHgap(8);
         pane.setVgap(8);
 

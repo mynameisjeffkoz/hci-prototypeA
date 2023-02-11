@@ -58,7 +58,7 @@ public final class Model
 		properties.put("awardDirecting", Award.FALSE);
 		properties.put("awardCinematography", Award.FALSE);
 		properties.put("awardActing", Award.FALSE);
-		properties.put("comments", "Comments:");
+		properties.put("comments", "Comments");
 		properties.put("director", "Director");
 		properties.put("genre", FXCollections.observableArrayList());
 		properties.put("isAnimated", false);
