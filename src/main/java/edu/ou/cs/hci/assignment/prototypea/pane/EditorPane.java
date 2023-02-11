@@ -195,6 +195,8 @@ public final class EditorPane extends AbstractPane {
             userAverage.setText(Double.toString((Double) value));
         else if ("summary".equals(key))
             summaryField.setText((String) value);
+        else if ("comments".equals(key))
+            commentField.setText((String) value);
     }
 
     //**********************************************************************
@@ -252,8 +254,8 @@ public final class EditorPane extends AbstractPane {
         upperGrid.add(lowerRightPane, 2, 4);
 
         Pane commentsPane = createCommentsPane();
-        GridPane.setColumnSpan(commentsPane,2);
-        upperGrid.add(commentsPane,0,5);
+        GridPane.setColumnSpan(commentsPane, 2);
+        upperGrid.add(commentsPane, 0, 5);
 
         BorderStroke gridBorderStroke = new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.DEFAULT_WIDTHS, new Insets(8));
         Border gridBorder = new Border(gridBorderStroke);
@@ -506,18 +508,19 @@ public final class EditorPane extends AbstractPane {
     Pane createCommentsPane() {
         GridPane pane = new GridPane();
 
-        pane.add(new Label("Comments:"),0,0);
+        pane.add(new Label("Comments:"), 0, 0);
 
         commentField = new TextArea();
         commentField.setWrapText(true);
         commentField.setPrefColumnCount(24);
+        commentField.setOnMouseExited(textAreaHandler);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(commentField);
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(120);
 
-        pane.add(scrollPane,0,1);
+        pane.add(scrollPane, 0, 1);
 
         return pane;
     }
@@ -680,6 +683,8 @@ public final class EditorPane extends AbstractPane {
             Object source = event.getSource();
             if (source == summaryField)
                 controller.set("summary", summaryField.getText());
+            else if (source == commentField)
+                controller.set("comments", commentField.getText());
         }
     }
 
