@@ -479,7 +479,8 @@ public final class EditorPane extends AbstractPane {
         userRatings.setTextFormatter(new TextFormatter<String>(integerFilter));
         pane.add(userRatings, 1, 0);
 
-        pane.add(new Label("Average:"), 2, 0);
+        Label avgLabel = new Label("Average:");
+        pane.add(avgLabel, 2, 0);
         userAverage = new TextField();
         userAverage.setPrefColumnCount(3);
         userAverage.setOnAction(actionHandler);
@@ -496,11 +497,20 @@ public final class EditorPane extends AbstractPane {
         scroll.setPrefHeight(120);
         GridPane.setColumnSpan(scroll, 3);
         summaryField.setOnMouseExited(textAreaHandler);
-        //summaryField.setOnAction(actionHandler);
         pane.add(scroll, 1, 1);
 
         pane.setMaxWidth(300);
 
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setPrefWidth(userAverage.getPrefWidth());
+
+        Button saveButton = new Button("Save Changes");
+        double saveWidth = userAverage.getPrefWidth();
+        saveButton.setPrefWidth(106);
+
+        GridPane.setColumnSpan(saveButton,2);
+        pane.add(cancelButton,3,2);
+        pane.add(saveButton,2,3);
 
         return pane;
     }
